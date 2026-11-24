@@ -108,20 +108,6 @@
   </div>
 </section>
 
-<section id="formation">
-  <div class="sec-head"><h2>Formation et cours en ligne</h2></div>
-  <div class="edu">
-    <div class="box">
-      <h3>Formation</h3>
-      <ul>{% for e in cv.edu %}<li>{{ e.t }}<small>{{ e.s }}</small></li>{% endfor %}</ul>
-    </div>
-    <div class="box">
-      <h3>Cours en ligne et certifications</h3>
-      <ul>{% for c in cv.certs %}<li>{{ c.t }}<small>{{ c.s }}</small></li>{% endfor %}</ul>
-    </div>
-  </div>
-</section>
-
 <section id="contact">
   <div class="sec-head"><h2>Contact</h2></div>
   <div class="contact">
