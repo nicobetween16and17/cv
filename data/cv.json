@@ -1,84 +1,104 @@
 {
   "sample": true,
-  "name": "Prénom Nom",
+  "name": "Nicolas Espana Ribera",
   "role": "Étudiant en informatique, à la recherche d'un stage",
-  "availability": "Recherche un stage",
-  "study_year": "3e année de bachelier",
+  "availability": "Recherche job etudiant",
+  "study_year": "2e année de bachelier",
   "city": "Bruxelles, Belgique",
-  "bio": "Étudiant en informatique, je construis des projets personnels et académiques pour apprendre en faisant : applications web, outils en ligne de commande et petits jeux. Je cherche un stage pour progresser auprès d'une équipe et contribuer à un vrai produit.",
-  "email": "prenom.nom@exemple.be",
+  "bio": "Étudiant en informatique, passionné par les jeux vidéo et la programmation. Je suis ouvert à de nouvelles expériences et j'aime apprendre de nouvelles choses. Plutot reserve de nature mais capable de me challenger.",
+  "email": "nicolas.espanaribera@gmail.be",
   "contact_text": "Un stage, un projet ou une question ? Écrivez-moi, je réponds en général sous 48 heures.",
   "links": [
-    { "label": "GitHub", "url": "https://github.com/" },
-    { "label": "LinkedIn", "url": "https://www.linkedin.com/" }
+    { "label": "GitHub", "url": "https://github.com/nicobetween16and17" },
   ],
   "terminal": [
-    ["whoami", "prenom.nom"],
+    ["whoami", "Nicolas Espana Ribera"],
     ["cat stack.txt", "Python · Java · JavaScript · SQL · Linux"],
-    ["cat formation.txt", "Bachelier en informatique · diplôme en 2027"],
+    ["cat formation.txt", "ESI 2018-2020 Bachelier en informatique, multiples formations web et mobiles avec le Forem, ecole 42 Bruxelles 2022-2025, EAFC Uccle Bachelier en informatique 2025-Aujourd'hui"],
     ["git log -1 --oneline", "a3f9c1e Disponible pour un stage"]
   ],
   "skills": [
     { "n": "Algorithmique et structures de données", "c": "Fondamentaux", "l": 4 },
     { "n": "Java", "c": "Fondamentaux", "l": 4 },
-    { "n": "C", "c": "Fondamentaux", "l": 3 },
+    { "n": "C", "c": "Fondamentaux", "l": 5 },
     { "n": "Python", "c": "Fondamentaux", "l": 4 },
     { "n": "HTML / CSS", "c": "Frontend", "l": 4 },
-    { "n": "JavaScript / TypeScript", "c": "Frontend", "l": 3 },
+    { "n": "JavaScript / TypeScript", "c": "Frontend", "l": 4 },
     { "n": "React", "c": "Frontend", "l": 3 },
-    { "n": "Accessibilité web", "c": "Frontend", "l": 2 },
     { "n": "Flask", "c": "Backend", "l": 3 },
     { "n": "Node.js", "c": "Backend", "l": 3 },
     { "n": "SQL et PostgreSQL", "c": "Backend", "l": 3 },
-    { "n": "API REST", "c": "Backend", "l": 3 },
-    { "n": "Git et GitHub", "c": "Outils et systèmes", "l": 4 },
-    { "n": "Linux (Ubuntu)", "c": "Outils et systèmes", "l": 3 },
-    { "n": "Bash", "c": "Outils et systèmes", "l": 3 },
-    { "n": "Docker", "c": "Outils et systèmes", "l": 2 },
-    { "n": "Réseaux et TCP/IP", "c": "Outils et systèmes", "l": 3 }
+    { "n": "REST API", "c": "Backend", "l": 4 },
+    { "n": "Git et GitHub", "c": "Outils et systèmes", "l": 5 },
+    { "n": "Linux (Ubuntu)", "c": "Outils et systèmes", "l": 4 },
+    { "n": "Bash", "c": "Outils et systèmes", "l": 5 },
+    { "n": "Docker", "c": "Outils et systèmes", "l": 3 },
+    { "n": "Réseaux et TCP/IP", "c": "Outils et systèmes", "l": 2 }
   ],
   "jobs": [
     {
-      "title": "Projet de fin d'études",
-      "co": "Haute École Exemple",
-      "when": "2026 – 2027",
+      "title": "Bachelier en informatique et réseaux",
+      "co": "EAFC Uccle",
+      "when": "2025 – Aujourd'hui",
       "points": [
-        "Conception d'une application web de réservation de salles pour l'école, en équipe de 4.",
-        "Rédaction des spécifications, du modèle de données et du plan de tests.",
-        "Présentation de l'avancement toutes les deux semaines devant un jury."
+        "Cablage et configuration réseau.",
+        "Creation de scripts d'automatisation pour la gestion des serveurs.",
+        "Gestion de la persistance des données et de la sécurité des systèmes."
       ],
-      "stack": ["React", "Node.js", "PostgreSQL", "Git"]
+      "stack": ["SQL", "Python", "PostgreSQL", "Git"]
     },
     {
-      "title": "Hackathon de 48 heures, 2e place",
-      "co": "Événement Exemple",
-      "when": "2025",
+      "title": "Projets du tronc commun",
+      "co": "École 42 Bruxelles",
+      "when": "2023-2025",
       "points": [
-        "Prototype d'une application de covoiturage étudiant réalisé en équipe de 5.",
-        "Développement de l'API et de la base de données pendant le week-end.",
-        "Présentation du projet en 5 minutes devant un jury."
+        "Apprendre a faire de la recherche et à résoudre des problèmes complexes en autonomie.",
+        "Gestion de son temps, des deadlines et des priorités.",
+        "Travail en équipe et communication efficace avec les autres étudiants.",
+        "Apprendre a lire et corriger du code écrit par d'autres, et à recevoir des critiques constructives sur son propre code."
       ],
-      "stack": ["Python", "SQL", "Git"]
+      "stack": ["C", "C++", "Python", "Bash", "Git", "Linux", "Docker", "SQL", "HTML / CSS", "JavaScript"]
     },
     {
-      "title": "Responsable des ateliers du cercle informatique",
-      "co": "Association étudiante Exemple",
-      "when": "2024 – 2026",
+      "title": "Formation en developpement web et mobile",
+      "co": "FOREM",
+      "when": "2022 – 2023",
       "points": [
-        "Organisation de 8 ateliers d'initiation à Linux, Git et au web pour une trentaine d'étudiants.",
-        "Préparation des supports et animation des sessions pratiques."
+        "Faire une base de donnees relationnelle et la manipuler avec SQL. une API en nodeJS et un front-end en React-native/Android Studio.",
+        "Gerer un Projet de A à Z, de la conception à la mise en production, en passant par le développement et les tests.",
       ],
-      "stack": ["Linux", "Git", "HTML / CSS"]
+      "stack": ["Java", "Kotlin", "HTML / CSS", "JavaScript", "React Native", "Node.js", "SQL", "Git"]
     },
     {
-      "title": "Projet de génie logiciel",
-      "co": "Cours de 2e année",
-      "when": "2025",
+      "title": "Formation en developpement web",
+      "co": "Formation Forem + Technobel",
+      "when": "debut 2022 - fin 2022",
       "points": [
-        "Application de gestion de bibliothèque en Java, avec tests unitaires et intégration continue.",
-        "Travail en méthode agile avec revues de code entre les 4 membres du groupe."
+        "Premiers pas en HTML, CSS et JavaScript, avec un projet final de site web responsive.",
+        "Apprentissage de divers frameworks et bibliothèques JavaScript, tels que React et Node.js, pour créer des applications web interactives avec des experts dans le domaine",
+        "Social skills : travail en équipe, communication, gestion du temps et des priorités, résolution de problèmes et créativité. Comment bien se presenter et se vendre en tant que demandeur d'emploi, comment se comporter en entretien et comment négocier un salaire."
       ],
-      "stack": ["Java", "JUnit", "GitHub Actions"]
+      "stack": ["Python", "HTML / CSS", "git", "JavaScript", "React", "Node.js", "SQL", "Angular"]
+    },
+    {
+      "title": "Bachelier en informatique industrielle",
+      "co": "He2b ESI Bruxelles",
+      "when": "2018 – 2020",
+      "points": [
+        "Developper et s'approprier des algorithmes pour des systèmes embarqués et des applications industrielles.",
+        "Projet de fin d'année : developpement d'un jeu en Java en ligne de commande",
+      ],
+      "stack": ["Java", "Algorithmique", "MySQL", "Git"]
+    },
+    {
+      "title": "Diplôme d'études secondaires, option mathématiques-sciences",
+      "co": "Athénée Exemple",
+      "when": "2018 – 2024",
+      "points": [
+        "Cours de mathématiques, physique, chimie et biologie.",
+        "Projet de fin d'année : developpement d'un jeu en Java en ligne de commande",
+      ],
+      "stack": ["Mathématiques", "Physique", "Chimie", "Biologie"]
     }
   ],
   "projects": [
