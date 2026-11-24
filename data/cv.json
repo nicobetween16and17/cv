@@ -1,13 +1,13 @@
 {
   "sample": false,
   "name": "Nicolas Espana Ribera",
-  "role": "Étudiant en informatique, à la recherche d'un stage",
+  "role": "Étudiant en informatique, à la recherche d'un job étudiant",
   "availability": "Recherche job etudiant",
   "study_year": "2e année de bachelier",
   "city": "Bruxelles, Belgique",
   "bio": "Étudiant en informatique, passionné par les jeux vidéo et la programmation. Je suis ouvert à de nouvelles expériences et j'aime apprendre de nouvelles choses. Plutot reserve de nature mais capable de me challenger.",
   "email": "nicolas.espanaribera@gmail.be",
-  "contact_text": "Un stage, un projet ou une question ? Écrivez-moi, je réponds en général sous 48 heures.",
+  "contact_text": "Un job, un projet ou une question ? Écrivez-moi, je réponds en général sous 48 heures.",
   "links": [
     { "label": "GitHub", "url": "https://github.com/nicobetween16and17" }
   ],
