@@ -5,16 +5,16 @@
   "availability": "Recherche job etudiant",
   "study_year": "2e année de bachelier",
   "city": "Bruxelles, Belgique",
-  "bio": "Étudiant en informatique, passionné par les jeux vidéo et la programmation. Je suis ouvert à de nouvelles expériences et j'aime apprendre de nouvelles choses. Plutot reserve de nature mais capable de me challenger.",
+  "bio": "Étudiant en informatique, passionné par les jeux vidéo et la programmation. Je suis ouvert à de nouvelles expériences et j'aime apprendre. Plutot réservé de nature mais capable de me challenger.",
   "email": "nicolas.espanaribera@gmail.be",
-  "contact_text": "Un job, un projet ou une question ? Écrivez-moi, je réponds en général sous 48 heures.",
+  "contact_text": "Un job, un projet ou une question ? Écrivez-moi, je réponds dans les 24 heures.",
   "links": [
     { "label": "GitHub", "url": "https://github.com/nicobetween16and17" }
   ],
   "terminal": [
     ["whoami", "Nicolas Espana Ribera"],
     ["cat stack.txt", "Python · Java · JavaScript · SQL · Linux"],
-    ["cat formation.txt", "ESI 2018-2020 Bachelier en informatique, multiples formations web et mobiles avec le Forem, ecole 42 Bruxelles 2022-2025, EAFC Uccle Bachelier en informatique 2025-Aujourd'hui"],
+    ["cat formation.txt", "ESI 2018-2020 Bachelier en informatique, multiples formations web et mobiles avec le Forem, école 42 Bruxelles 2022-2025, EAFC Uccle Bachelier en informatique 2025-Aujourd'hui"],
     ["git log -1 --oneline", "a3f9c1e En recherche de job étudiant vfinale finale2"]
   ],
   "skills": [
@@ -42,7 +42,7 @@
       "when": "2025 – Aujourd'hui",
       "points": [
         "Cablage et configuration réseau.",
-        "Creation de scripts d'automatisation pour la gestion des serveurs.",
+        "Création de scripts d'automatisation pour la gestion des serveurs.",
         "Gestion de la persistance des données et de la sécurité des systèmes."
       ],
       "stack": ["SQL", "Python", "PostgreSQL", "Git"]
@@ -52,10 +52,10 @@
       "co": "École 42 Bruxelles",
       "when": "2023-2025",
       "points": [
-        "Apprendre a faire de la recherche et à résoudre des problèmes complexes en autonomie.",
+        "Apprendre à faire de la recherche et à résoudre des problèmes complexes en autonomie.",
         "Gestion de son temps, des deadlines et des priorités.",
         "Travail en équipe et communication efficace avec les autres étudiants.",
-        "Apprendre a lire et corriger du code écrit par d'autres, et à recevoir des critiques constructives sur son propre code."
+        "Apprendre à lire et corriger du code écrit par d'autres, et à recevoir des critiques constructives sur son propre code."
       ],
       "stack": ["C", "C++", "Python", "Bash", "Git", "Linux", "Docker", "SQL", "HTML / CSS", "JavaScript"]
     },
@@ -64,8 +64,9 @@
       "co": "FOREM",
       "when": "2022 – 2023",
       "points": [
-        "Faire une base de donnees relationnelle et la manipuler avec SQL. une API en nodeJS et un front-end en React-native/Android Studio.",
-        "Gerer un Projet de A à Z, de la conception à la mise en production, en passant par le développement et les tests."
+        "Apprendre à utiliser Android Studio et Xcode pour developper des applications mobiles en Java et Kotlin.",
+        "Faire une base de donnees relationnelle et la manipuler avec SQL. une API en nodeJS et un front-end en React-native",
+        "Gérer un Projet de A à Z, de la conception à la mise en production, en passant par le développement et les tests."
       ],
       "stack": ["Java", "Kotlin", "HTML / CSS", "JavaScript", "React Native", "Node.js", "SQL", "Git"]
     },
@@ -85,8 +86,8 @@
       "co": "He2b ESI Bruxelles",
       "when": "2018 – 2020",
       "points": [
-        "Developper et s'approprier des algorithmes pour des systèmes embarqués et des applications industrielles.",
-        "Projet de fin d'année : developpement d'un jeu en Java en ligne de commande"
+        "Développer et s'approprier des algorithmes pour des systèmes embarqués et des applications industrielles.",
+        "Projet de fin d'année : développement d'un jeu en Java en ligne de commande"
       ],
       "stack": ["Java", "Algorithmique", "MySQL", "Git"]
     },
@@ -96,7 +97,7 @@
       "when": "2017 – 2018",
       "points": [
         "Projet de groupe, robot ramasseur de balle avec Arduino",
-        "Math appliquees à la physique et à la chimie, avec des applications en génie civil.",
+        "Math appliquées à la physique et à la chimie, avec des applications en génie civil.",
         "Modelisation 3D de composants avec un logiciel pro"
       ],
       "stack": ["Arduino", "Math", "Chimie"]
