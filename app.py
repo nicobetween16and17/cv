@@ -100,7 +100,9 @@ def top_scores(limit=10):
 # --------------------------------------------------------------------------
 @app.get("/")
 def index():
-    return render_template("index.html")
+    photo = load_cv().get("photo") or "img/photo.jpg"
+    has_photo = (BASE_DIR / "static" / photo).is_file()
+    return render_template("index.html", has_photo=has_photo, photo_path=photo)
 
 
 @app.get("/pong")

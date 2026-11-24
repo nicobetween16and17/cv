@@ -1,126 +1,44 @@
-{% extends "base.html" %}
-
-{% set categories = cv.skills | map(attribute='c') | unique | list %}
-{% set techs = cv.projects | map(attribute='tags') | sum(start=[]) | unique | list %}
-
-{% block content %}
-{% if cv.sample %}
-<div class="note" id="note">
-  <span>Contenu d'exemple. Les noms, dates et projets sont fictifs. Modifiez <code>data/cv.json</code> puis passez <code>"sample"</code> à <code>false</code>.</span>
-  <button type="button" id="noteClose">Masquer</button>
-</div>
-{% endif %}
-
-<section id="accueil" class="hero">
-  <div>
-    <p class="eyebrow">{{ cv.availability }}</p>
-    <h1>{{ cv.name }}</h1>
-    <p class="role">{{ cv.role }}</p>
-    <p class="bio">{{ cv.bio }}</p>
-    <div class="cta">
-      <a class="btn primary" href="#contact">Me contacter</a>
-      <a class="btn" href="#projets">Voir mes projets</a>
-      <a class="btn" href="{{ url_for('pong') }}">Jouer au Pong</a>
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ cv.name }} · CV{% endblock %}</title>
+  <meta name="description" content="{{ cv.role }}. {{ cv.city }}.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <script>
+    try { var t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+  <header class="bar">
+    <div class="wrap">
+      <nav aria-label="Sections">
+        <a href="{{ url_for('index') }}#accueil" data-s="accueil">Accueil</a>
+        <a href="{{ url_for('index') }}#competences" data-s="competences">Compétences</a>
+        <a href="{{ url_for('index') }}#experience" data-s="experience">Parcours</a>
+        <a href="{{ url_for('index') }}#projets" data-s="projets">Projets</a>
+        <a href="{{ url_for('index') }}#contact" data-s="contact">Contact</a>
+        <a href="{{ url_for('pong') }}" class="{{ 'on' if request.endpoint == 'pong' }}">Pong</a>
+      </nav>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Changer de thème">thème</button>
     </div>
-    <div class="facts">
-      <span>Formation : <b>{{ cv.study_year }}</b></span>
-      <span>Lieu : <b>{{ cv.city }}</b></span>
-      <span>Projets : <b>{{ cv.projects | length }} présentés</b></span>
-    </div>
-  </div>
-  <div class="term" role="img" aria-label="Terminal affichant un résumé du profil">
-    <div class="term-top"><i></i><i></i><i></i><span>~/profil</span></div>
-    <div class="term-body">
-      {% for cmd, out in cv.terminal %}
-      <div class="term-line" style="animation-delay: {{ (loop.index0 * 0.55) | round(2) }}s"><span class="p">$ </span>{{ cmd }}</div>
-      <div class="term-line g" style="animation-delay: {{ (loop.index0 * 0.55 + 0.25) | round(2) }}s">{{ out }}</div>
-      {% endfor %}
-      <div class="term-line" style="animation-delay: {{ (cv.terminal | length * 0.55) | round(2) }}s"><span class="p">$ </span><span class="caret"></span></div>
-    </div>
-  </div>
-</section>
+  </header>
 
-<section id="competences">
-  <div class="sec-head">
-    <h2>Compétences</h2>
-    <span class="sub">Filtrer par domaine</span>
-  </div>
-  <div class="chips" data-filter-for="skills">
-    <button class="chip" type="button" data-value="Tout" aria-pressed="true">Tout</button>
-    {% for c in categories %}
-    <button class="chip" type="button" data-value="{{ c }}" aria-pressed="false">{{ c }}</button>
-    {% endfor %}
-  </div>
-  <div class="skills" data-filter-items="skills">
-    {% for s in cv.skills %}
-    <div class="skill" data-tags="{{ s.c }}">
-      <div><span class="n">{{ s.n }}</span><span class="c">{{ s.c }}</span></div>
-      <div class="dots" role="img" aria-label="Niveau {{ s.l }} sur 5">
-        {% for k in range(1, 6) %}<i class="{{ 'f' if k <= s.l }}"></i>{% endfor %}
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-  <p class="legend">Les points indiquent le niveau, de 1 (notions) à 5 (expert).</p>
-</section>
+  <main class="wrap" id="contenu">
+    {% block content %}{% endblock %}
 
-<section id="experience">
-  <div class="sec-head">
-    <h2>Parcours</h2>
-    <button class="chip" type="button" id="toggleAll">Tout déplier</button>
-  </div>
-  <div class="xp">
-    {% for j in cv.jobs %}
-    <details class="job"{{ ' open' if loop.first }}>
-      <summary>
-        <div><h3>{{ j.title }}</h3><div class="co">{{ j.co }}</div></div>
-        <span class="when">{{ j.when }}</span>
-      </summary>
-      <div class="body">
-        <ul>{% for p in j.points %}<li>{{ p }}</li>{% endfor %}</ul>
-        <div class="tags">{% for x in j.stack %}<span class="tag">{{ x }}</span>{% endfor %}</div>
-      </div>
-    </details>
-    {% endfor %}
-  </div>
-</section>
+    <footer>
+      <span>© {{ now_year }} {{ cv.name }}</span>
+      <span>Propulsé par Flask et Python</span>
+    </footer>
+  </main>
 
-<section id="projets">
-  <div class="sec-head">
-    <h2>Projets</h2>
-    <span class="sub">Filtrer par technologie</span>
-  </div>
-  <div class="chips" data-filter-for="projects">
-    <button class="chip" type="button" data-value="Tout" aria-pressed="true">Tout</button>
-    {% for t in techs %}
-    <button class="chip" type="button" data-value="{{ t }}" aria-pressed="false">{{ t }}</button>
-    {% endfor %}
-  </div>
-  <div class="projects" data-filter-items="projects">
-    {% for p in cv.projects %}
-    <article class="proj" data-tags="{{ p.tags | join('|') }}">
-      <h3>{{ p.t }}</h3>
-      <p>{{ p.d }}</p>
-      <div class="tags">{% for x in p.tags %}<span class="tag">{{ x }}</span>{% endfor %}</div>
-      <a class="lnk" href="{{ p.url }}" target="_blank" rel="noopener noreferrer">Voir le code →</a>
-    </article>
-    {% endfor %}
-  </div>
-</section>
-
-<section id="contact">
-  <div class="sec-head"><h2>Contact</h2></div>
-  <div class="contact">
-    <p>{{ cv.contact_text }}</p>
-    <div class="mail-row">
-      <span class="mail" id="mail">{{ cv.email }}</span>
-      <a class="btn primary" href="mailto:{{ cv.email }}">Écrire un e-mail</a>
-      <button class="btn" type="button" id="copyMail">Copier l'adresse</button>
-      <span class="toast" id="toast" role="status"></span>
-    </div>
-    <div class="links">
-      {% for l in cv.links %}<a href="{{ l.url }}" target="_blank" rel="noopener noreferrer">{{ l.label }} ↗</a>{% endfor %}
-    </div>
-  </div>
-</section>
-{% endblock %}
+  <script src="{{ asset('js/site.js') }}" defer></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
