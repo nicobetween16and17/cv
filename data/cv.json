@@ -91,48 +91,41 @@
       "stack": ["Java", "Algorithmique", "MySQL", "Git"]
     },
     {
-      "title": "Diplôme d'études secondaires, option mathématiques-sciences",
-      "co": "Athénée Exemple",
-      "when": "2018 – 2024",
+      "title": "Genie civil",
+      "co": "Umons",
+      "when": "2017 – 2018",
       "points": [
-        "Cours de mathématiques, physique, chimie et biologie.",
-        "Projet de fin d'année : developpement d'un jeu en Java en ligne de commande",
+        "Projet de groupe, robot ramasseur de balle avec Arduino",
+        "Math appliquees à la physique et à la chimie, avec des applications en génie civil.",
+        "Modelisation 3D de composants avec un logiciel pro"
       ],
-      "stack": ["Mathématiques", "Physique", "Chimie", "Biologie"]
+      "stack": ["Arduino", "Math", "Chimie"]
     }
   ],
   "projects": [
     {
-      "t": "Gestionnaire de tâches en ligne",
-      "d": "Application web avec comptes utilisateurs, listes partagées et rappels par e-mail.",
-      "tags": ["React", "Node.js", "PostgreSQL"],
-      "url": "https://github.com/"
+      "t": "Gestionnaire de gestion d'emplois du temps en ligne et en application Discord",
+      "d": "Dernier projet en date, c'est un site basique en html/css/js sans framework. serveur en python. le but etant de faire une application discord pour gerer l'emploi du temps de mes amis et moi.",
+      "tags": ["Python", "Sqlite", "Discord", "HTML", "CSS", "JavaScript"],
+      "url": "https://nicobdd.pythonanywhere.com/"
     },
     {
       "t": "Mini-shell en C",
-      "d": "Interpréteur de commandes avec tubes, redirections et historique, réalisé pour le cours de systèmes.",
-      "tags": ["C", "Linux"],
-      "url": "https://github.com/"
+      "d": "Interpréteur de commandes avec tubes, redirections et historique, réalisé a l'ecole .",
+      "tags": ["C", "MacOS"],
+      "url": "https://github.com/nicobetween16and17/minishell.git"
     },
     {
-      "t": "Jeu de plateau en Java",
-      "d": "Jeu à deux joueurs avec interface graphique, intelligence artificielle simple et sauvegarde des parties.",
-      "tags": ["Java"],
-      "url": "https://github.com/"
+      "t": "Doom/Wolfenstein en C",
+      "d": "Jeu en raycasting, gestion du fisheye, réalisé a l'ecole 42.",
+      "tags": ["C"],
+      "url": "https://github.com/nicobetween16and17/cube3d.git"
     },
     {
       "t": "Ce site : CV et Pong",
       "d": "Serveur Flask avec pages rendues côté serveur, API de classement en SQLite et jeu Pong en JavaScript.",
       "tags": ["Python", "Flask", "JavaScript"],
-      "url": "https://github.com/"
+      "url": "https://github.com/nicobetween16and17/cv.git"
     }
-  ],
-  "edu": [
-    { "t": "Bachelier en informatique", "s": "Haute École Exemple · 2024 – 2027 (en cours)" },
-    { "t": "Diplôme d'études secondaires, option mathématiques-sciences", "s": "Athénée Exemple · 2018 – 2024" }
-  ],
-  "certs": [
-    { "t": "CS50x : introduction à l'informatique", "s": "Harvard, cours en ligne · 2025" },
-    { "t": "Linux Essentials", "s": "En préparation" }
   ]
 }
