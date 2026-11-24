@@ -50,18 +50,27 @@
     if (!track || !n) return;
 
     var GAP = 0.92, MAX_BLUR = 6, MIN_SCALE = 0.82, SMOOTH = 9;
-    var pos = 0, target = 0, raf = 0, last = 0, active = -1, drag = null, lastWheel = 0;
+    var pos = 0, target = 0, raf = 0, last = null, active = -1, drag = null, lastWheel = 0;
     function mod(a, m) { return ((a % m) + m) % m; }
 
     root.classList.add("is-live");
 
+    /* La mise en page essentielle est aussi posée ici : le carrousel reste correct
+       même si le navigateur garde une ancienne version de la feuille de style. */
+    track.style.display = "block"; track.style.position = "relative"; track.style.overflow = "hidden";
+    track.style.scrollSnapType = "none"; track.style.touchAction = "pan-y";
+    slides.forEach(function (s) {
+      s.style.position = "absolute"; s.style.top = "12px"; s.style.left = "0";
+      s.style.width = "min(560px, 80%)"; s.style.flex = "none"; s.style.margin = "0";
+    });
+
     /* Hauteur commune : la plus grande carte */
     function measure() {
-      track.style.removeProperty("--c-h"); track.style.removeProperty("--c-stage");
+      track.style.height = ""; slides.forEach(function (s) { s.style.height = ""; });
       var h = 0;
       slides.forEach(function (s) { h = Math.max(h, s.offsetHeight); });
-      track.style.setProperty("--c-h", h + "px");
-      track.style.setProperty("--c-stage", (h + 24) + "px");
+      slides.forEach(function (s) { s.style.height = h + "px"; });
+      track.style.height = (h + 24) + "px";
     }
 
     function render() {
@@ -93,8 +102,15 @@
       }
     }
 
+    /* Le temps vient uniquement des horodatages de requestAnimationFrame (jamais de
+       performance.now, dont l'horloge peut différer selon le navigateur). Un pas de
+       temps négatif, nul ou énorme est ramené à une valeur raisonnable. */
     function tick(t) {
-      var dt = Math.min((t - last) / 1000, 0.05); last = t;
+      var dt = last === null ? 1 / 60 : (t - last) / 1000;
+      last = t;
+      if (!(dt > 0)) dt = 1 / 60;
+      if (dt > 0.05) dt = 0.05;
+      if (!isFinite(pos)) pos = isFinite(target) ? target : 0;
       var dragging = drag && drag.engaged;
       if (!dragging) {
         if (target !== Math.round(target)) target = Math.round(target);   /* on se pose toujours sur une carte */
@@ -103,9 +119,10 @@
         if (Math.abs(target - pos) < 0.0008) pos = target;
       }
       render();
-      raf = (dragging || pos !== target) ? requestAnimationFrame(tick) : 0;
+      if (dragging || pos !== target) raf = requestAnimationFrame(tick);
+      else { raf = 0; last = null; }
     }
-    function kick() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); } }
+    function kick() { if (!raf) { last = null; raf = requestAnimationFrame(tick); } }
 
     function go(delta) { target = Math.round(target) + delta; kick(); }
     function goTo(i) {
