@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Pong · {{ cv.name }}{% endblock %}
+
+{% block content %}
+<section class="pong-page">
+  <div class="sec-head">
+    <h1>Pong</h1>
+    <span class="sub">Premier à 7 points. Souris, doigt, flèches ou Z / S pour bouger. Espace pour jouer ou mettre en pause.</span>
+  </div>
+
+  <div class="pong-bar">
+    <label class="pong-level">Niveau
+      <select id="level">
+        <option value="facile">Facile</option>
+        <option value="normal" selected>Normal</option>
+        <option value="difficile">Difficile</option>
+      </select>
+    </label>
+    <button class="btn primary" type="button" id="btnPlay">Jouer</button>
+    <button class="btn" type="button" id="btnReset">Nouvelle partie</button>
+  </div>
+
+  <canvas id="pong" width="800" height="500" tabindex="0"
+          aria-label="Terrain de Pong. Vous jouez la raquette de gauche contre l'ordinateur."></canvas>
+
+  <div class="result" id="result" hidden>
+    <p id="resultText" role="status"></p>
+    <form id="scoreForm" hidden>
+      <label for="pseudo">Pseudo pour le classement</label>
+      <div class="score-row">
+        <input id="pseudo" name="pseudo" type="text" maxlength="16" autocomplete="nickname" required>
+        <button class="btn primary" type="submit">Enregistrer le score</button>
+      </div>
+      <p class="form-msg" id="formMsg" role="status"></p>
+    </form>
+  </div>
+
+  <div class="board">
+    <h2>Meilleurs scores</h2>
+    <ol id="board"><li class="empty">Chargement du classement…</li></ol>
+    <p class="legend">Score = 100 points par point d'écart, 10 par échange du plus long rallye, plus un bonus de niveau. Classement ludique, sans vérification stricte.</p>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ asset('js/pong.js') }}" defer></script>
+{% endblock %}

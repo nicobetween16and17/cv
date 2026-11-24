@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ cv.name }} · CV{% endblock %}</title>
+  <meta name="description" content="{{ cv.role }}. {{ cv.city }}.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <script>
+    try { var t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+  <header class="bar">
+    <div class="wrap">
+      <nav aria-label="Sections">
+        <a href="{{ url_for('index') }}#accueil" data-s="accueil">Accueil</a>
+        <a href="{{ url_for('index') }}#competences" data-s="competences">Compétences</a>
+        <a href="{{ url_for('index') }}#experience" data-s="experience">Parcours</a>
+        <a href="{{ url_for('index') }}#projets" data-s="projets">Projets</a>
+        <a href="{{ url_for('index') }}#formation" data-s="formation">Formation</a>
+        <a href="{{ url_for('index') }}#contact" data-s="contact">Contact</a>
+        <a href="{{ url_for('pong') }}" class="{{ 'on' if request.endpoint == 'pong' }}">Pong</a>
+      </nav>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Changer de thème">thème</button>
+    </div>
+  </header>
+
+  <main class="wrap" id="contenu">
+    {% block content %}{% endblock %}
+
+    <footer>
+      <span>© {{ now_year }} {{ cv.name }}</span>
+      <span>Propulsé par Flask et Python</span>
+    </footer>
+  </main>
+
+  <script src="{{ asset('js/site.js') }}" defer></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

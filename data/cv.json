@@ -1,0 +1,118 @@
+{
+  "sample": true,
+  "name": "Prénom Nom",
+  "role": "Étudiant en informatique, à la recherche d'un stage",
+  "availability": "Recherche un stage",
+  "study_year": "3e année de bachelier",
+  "city": "Bruxelles, Belgique",
+  "bio": "Étudiant en informatique, je construis des projets personnels et académiques pour apprendre en faisant : applications web, outils en ligne de commande et petits jeux. Je cherche un stage pour progresser auprès d'une équipe et contribuer à un vrai produit.",
+  "email": "prenom.nom@exemple.be",
+  "contact_text": "Un stage, un projet ou une question ? Écrivez-moi, je réponds en général sous 48 heures.",
+  "links": [
+    { "label": "GitHub", "url": "https://github.com/" },
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/" }
+  ],
+  "terminal": [
+    ["whoami", "prenom.nom"],
+    ["cat stack.txt", "Python · Java · JavaScript · SQL · Linux"],
+    ["cat formation.txt", "Bachelier en informatique · diplôme en 2027"],
+    ["git log -1 --oneline", "a3f9c1e Disponible pour un stage"]
+  ],
+  "skills": [
+    { "n": "Algorithmique et structures de données", "c": "Fondamentaux", "l": 4 },
+    { "n": "Java", "c": "Fondamentaux", "l": 4 },
+    { "n": "C", "c": "Fondamentaux", "l": 3 },
+    { "n": "Python", "c": "Fondamentaux", "l": 4 },
+    { "n": "HTML / CSS", "c": "Frontend", "l": 4 },
+    { "n": "JavaScript / TypeScript", "c": "Frontend", "l": 3 },
+    { "n": "React", "c": "Frontend", "l": 3 },
+    { "n": "Accessibilité web", "c": "Frontend", "l": 2 },
+    { "n": "Flask", "c": "Backend", "l": 3 },
+    { "n": "Node.js", "c": "Backend", "l": 3 },
+    { "n": "SQL et PostgreSQL", "c": "Backend", "l": 3 },
+    { "n": "API REST", "c": "Backend", "l": 3 },
+    { "n": "Git et GitHub", "c": "Outils et systèmes", "l": 4 },
+    { "n": "Linux (Ubuntu)", "c": "Outils et systèmes", "l": 3 },
+    { "n": "Bash", "c": "Outils et systèmes", "l": 3 },
+    { "n": "Docker", "c": "Outils et systèmes", "l": 2 },
+    { "n": "Réseaux et TCP/IP", "c": "Outils et systèmes", "l": 3 }
+  ],
+  "jobs": [
+    {
+      "title": "Projet de fin d'études",
+      "co": "Haute École Exemple",
+      "when": "2026 – 2027",
+      "points": [
+        "Conception d'une application web de réservation de salles pour l'école, en équipe de 4.",
+        "Rédaction des spécifications, du modèle de données et du plan de tests.",
+        "Présentation de l'avancement toutes les deux semaines devant un jury."
+      ],
+      "stack": ["React", "Node.js", "PostgreSQL", "Git"]
+    },
+    {
+      "title": "Hackathon de 48 heures, 2e place",
+      "co": "Événement Exemple",
+      "when": "2025",
+      "points": [
+        "Prototype d'une application de covoiturage étudiant réalisé en équipe de 5.",
+        "Développement de l'API et de la base de données pendant le week-end.",
+        "Présentation du projet en 5 minutes devant un jury."
+      ],
+      "stack": ["Python", "SQL", "Git"]
+    },
+    {
+      "title": "Responsable des ateliers du cercle informatique",
+      "co": "Association étudiante Exemple",
+      "when": "2024 – 2026",
+      "points": [
+        "Organisation de 8 ateliers d'initiation à Linux, Git et au web pour une trentaine d'étudiants.",
+        "Préparation des supports et animation des sessions pratiques."
+      ],
+      "stack": ["Linux", "Git", "HTML / CSS"]
+    },
+    {
+      "title": "Projet de génie logiciel",
+      "co": "Cours de 2e année",
+      "when": "2025",
+      "points": [
+        "Application de gestion de bibliothèque en Java, avec tests unitaires et intégration continue.",
+        "Travail en méthode agile avec revues de code entre les 4 membres du groupe."
+      ],
+      "stack": ["Java", "JUnit", "GitHub Actions"]
+    }
+  ],
+  "projects": [
+    {
+      "t": "Gestionnaire de tâches en ligne",
+      "d": "Application web avec comptes utilisateurs, listes partagées et rappels par e-mail.",
+      "tags": ["React", "Node.js", "PostgreSQL"],
+      "url": "https://github.com/"
+    },
+    {
+      "t": "Mini-shell en C",
+      "d": "Interpréteur de commandes avec tubes, redirections et historique, réalisé pour le cours de systèmes.",
+      "tags": ["C", "Linux"],
+      "url": "https://github.com/"
+    },
+    {
+      "t": "Jeu de plateau en Java",
+      "d": "Jeu à deux joueurs avec interface graphique, intelligence artificielle simple et sauvegarde des parties.",
+      "tags": ["Java"],
+      "url": "https://github.com/"
+    },
+    {
+      "t": "Ce site : CV et Pong",
+      "d": "Serveur Flask avec pages rendues côté serveur, API de classement en SQLite et jeu Pong en JavaScript.",
+      "tags": ["Python", "Flask", "JavaScript"],
+      "url": "https://github.com/"
+    }
+  ],
+  "edu": [
+    { "t": "Bachelier en informatique", "s": "Haute École Exemple · 2024 – 2027 (en cours)" },
+    { "t": "Diplôme d'études secondaires, option mathématiques-sciences", "s": "Athénée Exemple · 2018 – 2024" }
+  ],
+  "certs": [
+    { "t": "CS50x : introduction à l'informatique", "s": "Harvard, cours en ligne · 2025" },
+    { "t": "Linux Essentials", "s": "En préparation" }
+  ]
+}
