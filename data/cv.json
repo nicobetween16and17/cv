@@ -65,7 +65,7 @@
       "when": "2022 – 2023",
       "points": [
         "Faire une base de donnees relationnelle et la manipuler avec SQL. une API en nodeJS et un front-end en React-native/Android Studio.",
-        "Gerer un Projet de A à Z, de la conception à la mise en production, en passant par le développement et les tests.",
+        "Gerer un Projet de A à Z, de la conception à la mise en production, en passant par le développement et les tests."
       ],
       "stack": ["Java", "Kotlin", "HTML / CSS", "JavaScript", "React Native", "Node.js", "SQL", "Git"]
     },
@@ -86,7 +86,7 @@
       "when": "2018 – 2020",
       "points": [
         "Developper et s'approprier des algorithmes pour des systèmes embarqués et des applications industrielles.",
-        "Projet de fin d'année : developpement d'un jeu en Java en ligne de commande",
+        "Projet de fin d'année : developpement d'un jeu en Java en ligne de commande"
       ],
       "stack": ["Java", "Algorithmique", "MySQL", "Git"]
     },
