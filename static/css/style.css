@@ -92,14 +92,13 @@ code { font: 500 0.9em var(--font-mono); background: var(--surface-2); padding: 
 @keyframes show { to { opacity: 1; } }
 @keyframes blink { 50% { opacity: 0; } }
 
-/* Portrait : photo à droite, terminal posé sur son coin inférieur gauche */
-.portrait { min-width: 0; }
-.photo { margin: 0 0 0 auto; width: min(76%, 330px); aspect-ratio: 4 / 5; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: var(--surface-2); }
+/* Portrait : la photo au-dessus, le terminal dessous, sans chevauchement */
+.portrait { min-width: 0; display: grid; gap: 16px; }
+.photo { margin: 0 0 0 auto; width: min(72%, 290px); aspect-ratio: 3 / 4; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: var(--surface-2); }
 .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .photo.ph { display: grid; place-content: center; justify-items: center; gap: 10px; background: var(--accent-soft); color: var(--accent); }
 .photo .initials { font: 700 clamp(3rem, 9vw, 5rem)/1 var(--font-display); letter-spacing: -0.02em; }
 .photo .hint { font: 400 12px/1.2 var(--font-mono); color: var(--muted); padding-inline: 12px; text-align: center; overflow-wrap: anywhere; }
-.portrait .term { position: relative; width: 94%; margin-top: -64px; box-shadow: 0 20px 40px -22px rgba(8, 12, 24, .55); }
 
 /* Sections */
 section { padding-top: 56px; scroll-margin-top: 60px; }
@@ -122,23 +121,25 @@ section { padding-top: 56px; scroll-margin-top: 60px; }
 .dots i.f { background: var(--accent); }
 .legend { margin-top: 12px; font-size: 13px; color: var(--muted); }
 
-/* Parcours : carrousel à défilement magnétique, flou selon la distance au centre */
+/* Parcours : carrousel circulaire. Sans JavaScript, simple liste de cartes.
+   Avec JavaScript (.is-live), les cartes sont posées sur une scène et déplacées
+   par transform : taille, flou et transparence dépendent de la distance au centre. */
 .carousel { position: relative; }
-.c-track {
-  position: relative; display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
-  padding-block: 20px 28px; scrollbar-width: none; overscroll-behavior-x: contain; cursor: grab;
-  -webkit-overflow-scrolling: touch; border-radius: 12px;
+.c-track { display: grid; gap: 12px; }
+.carousel.is-live .c-track {
+  display: block; position: relative; overflow: hidden; border-radius: 12px;
+  height: var(--c-stage, 380px); touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none;
 }
-.c-track::-webkit-scrollbar { display: none; }
-.c-track::before, .c-track::after { content: ""; flex: 0 0 calc((100% - min(560px, 80%)) / 2 - 16px); }
-.c-track.drag { scroll-snap-type: none; cursor: grabbing; user-select: none; }
+.carousel.is-live .c-track.drag { cursor: grabbing; }
 .c-slide {
-  flex: 0 0 min(560px, 80%); scroll-snap-align: center; scroll-snap-stop: always;
   background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 24px;
   display: flex; flex-direction: column; gap: 8px; min-width: 0;
-  will-change: filter, transform, opacity;
 }
-.c-slide.on { border-color: var(--accent); }
+.carousel.is-live .c-slide {
+  position: absolute; top: 12px; left: 0; width: min(560px, 80%); height: var(--c-h, auto);
+  transform-origin: 50% 50%; will-change: transform, filter, opacity;
+}
+.c-slide.on { border-color: var(--accent); box-shadow: 0 22px 44px -28px rgba(8, 12, 24, .55); }
 .c-meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
 .badge { font: 500 12px/1 var(--font-mono); letter-spacing: .05em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 6px 9px; border-radius: 5px; }
 .c-slide .when { font: 500 14px/1 var(--font-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
@@ -146,10 +147,10 @@ section { padding-top: 56px; scroll-margin-top: 60px; }
 .c-slide .co { color: var(--muted); font-size: 14px; }
 .c-slide ul { margin: 10px 0 0; padding-left: 18px; display: grid; gap: 6px; }
 .c-slide .tags { margin-top: auto; padding-top: 16px; }
-.c-ctrl { display: flex; align-items: center; justify-content: center; gap: 14px; }
+.c-ctrl { display: none; align-items: center; justify-content: center; gap: 14px; margin-top: 14px; }
+.carousel.is-live .c-ctrl { display: flex; }
 .c-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--fg); font: 500 16px/1 var(--font-body); cursor: pointer; }
 .c-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-.c-btn:disabled { opacity: .35; cursor: default; }
 .c-dots { display: flex; gap: 2px; flex-wrap: wrap; justify-content: center; min-width: 0; }
 .c-dot { position: relative; width: 22px; height: 22px; border: 0; background: none; cursor: pointer; padding: 0; }
 .c-dot::after { content: ""; position: absolute; inset: 7px; border-radius: 50%; background: var(--line); transition: background .2s, transform .2s; }
@@ -205,7 +206,6 @@ footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line);
   .hero { grid-template-columns: 1fr; gap: 28px; padding-block: 32px 8px; }
   .photo { width: min(64%, 280px); }
   .c-slide { padding: 20px; }
-  .c-dots { display: none; }
   .board li { grid-template-columns: 2rem 1fr auto; }
   .board .lvl { display: none; }
 }

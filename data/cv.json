@@ -15,7 +15,7 @@
     ["whoami", "Nicolas Espana Ribera"],
     ["cat stack.txt", "Python · Java · JavaScript · SQL · Linux"],
     ["cat formation.txt", "ESI 2018-2020 Bachelier en informatique, multiples formations web et mobiles avec le Forem, ecole 42 Bruxelles 2022-2025, EAFC Uccle Bachelier en informatique 2025-Aujourd'hui"],
-    ["git log -1 --oneline", "a3f9c1e Disponible pour un stage"]
+    ["git log -1 --oneline", "a3f9c1e En recherche de job étudiant vfinale finale2"]
   ],
   "skills": [
     { "n": "Algorithmique et structures de données", "c": "Fondamentaux", "l": 4 },

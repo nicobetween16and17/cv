@@ -35,7 +35,10 @@
     });
   });
 
-  /* Parcours : carrousel avec flou et échelle liés à la distance au centre */
+  /* Parcours : carrousel circulaire.
+     `pos` est la position (en nombre de cartes) qui glisse en douceur vers `target`.
+     Pour chaque carte, d = distance circulaire au centre : elle pilote le décalage,
+     la taille, le flou et la transparence, donc tout évolue pendant la transition. */
   document.querySelectorAll("[data-carousel]").forEach(function (root) {
     var track = root.querySelector(".c-track");
     var slides = Array.prototype.slice.call(root.querySelectorAll(".c-slide"));
@@ -43,82 +46,131 @@
     var prev = root.querySelector("[data-prev]"), next = root.querySelector("[data-next]");
     var count = root.querySelector("[data-count]");
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-    var active = 0, ticking = false, MAX_BLUR = 7;
-    if (!track || !slides.length) return;
+    var n = slides.length;
+    if (!track || !n) return;
 
-    function targetLeft(i) {
-      var s = slides[i];
-      return s.offsetLeft - (track.clientWidth - s.offsetWidth) / 2;
+    var GAP = 0.92, MAX_BLUR = 6, MIN_SCALE = 0.82, SMOOTH = 9;
+    var pos = 0, target = 0, raf = 0, last = 0, active = -1, drag = null, lastWheel = 0;
+    function mod(a, m) { return ((a % m) + m) % m; }
+
+    root.classList.add("is-live");
+
+    /* Hauteur commune : la plus grande carte */
+    function measure() {
+      track.style.removeProperty("--c-h"); track.style.removeProperty("--c-stage");
+      var h = 0;
+      slides.forEach(function (s) { h = Math.max(h, s.offsetHeight); });
+      track.style.setProperty("--c-h", h + "px");
+      track.style.setProperty("--c-stage", (h + 24) + "px");
     }
-    function go(i) {
-      i = Math.max(0, Math.min(slides.length - 1, i));
-      track.scrollTo({ left: targetLeft(i), behavior: reduce.matches ? "auto" : "smooth" });
-    }
-    function nearest() {
-      var best = 0, bestD = Infinity, left = track.scrollLeft;
+
+    function render() {
+      var stageW = track.clientWidth;
+      var w = slides[0].offsetWidth, step = w * GAP;
       slides.forEach(function (s, i) {
-        var d = Math.abs(targetLeft(i) - left);
-        if (d < bestD) { bestD = d; best = i; }
-      });
-      return best;
-    }
-    function update() {
-      ticking = false;
-      var left = track.scrollLeft;
-      slides.forEach(function (s) {
-        var w = s.offsetWidth + 16;
-        var k = Math.min(Math.abs(s.offsetLeft - (track.clientWidth - s.offsetWidth) / 2 - left) / w, 1.2);
-        if (reduce.matches) { s.style.filter = ""; s.style.opacity = ""; s.style.transform = ""; return; }
+        var d = i - pos;
+        d -= n * Math.round(d / n);                 /* distance circulaire, entre -n/2 et n/2 */
+        var a = Math.abs(d), k = Math.min(a, 1.5);
+        if (a > 2.2) { s.style.visibility = "hidden"; return; }
+        s.style.visibility = "visible";
+        var x = (stageW - w) / 2 + d * step;
+        var scale = 1 - (1 - MIN_SCALE) * (k / 1.5);
         var blur = k * MAX_BLUR;
+        s.style.transform = "translate3d(" + x.toFixed(1) + "px,0,0) scale(" + scale.toFixed(4) + ")";
         s.style.filter = blur > 0.2 ? "blur(" + blur.toFixed(2) + "px)" : "none";
-        s.style.opacity = (1 - k * 0.5).toFixed(3);
-        s.style.transform = "scale(" + (1 - k * 0.05).toFixed(4) + ")";
+        s.style.opacity = Math.max(0, 1 - a * 0.45).toFixed(3);
+        s.style.zIndex = String(100 - Math.round(a * 10));
       });
-      var n = nearest();
-      if (n !== active || !slides[n].classList.contains("on")) {
-        active = n;
-        slides.forEach(function (s, i) { s.classList.toggle("on", i === n); });
-        dots.forEach(function (d, i) { if (i === n) d.setAttribute("aria-current", "true"); else d.removeAttribute("aria-current"); });
-        if (count) count.textContent = (n + 1) + " / " + slides.length;
-        if (prev) prev.disabled = n === 0;
-        if (next) next.disabled = n === slides.length - 1;
+      var cur = mod(Math.round(pos), n);
+      if (cur !== active) {
+        active = cur;
+        slides.forEach(function (s, i) {
+          s.classList.toggle("on", i === cur);
+          if (i === cur) s.removeAttribute("aria-hidden"); else s.setAttribute("aria-hidden", "true");
+        });
+        dots.forEach(function (d, i) { if (i === cur) d.setAttribute("aria-current", "true"); else d.removeAttribute("aria-current"); });
+        if (count) count.textContent = (cur + 1) + " / " + n;
       }
     }
-    function schedule() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
 
-    track.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", function () { go(active); schedule(); });
-    if (prev) prev.addEventListener("click", function () { go(active - 1); });
-    if (next) next.addEventListener("click", function () { go(active + 1); });
-    dots.forEach(function (d) { d.addEventListener("click", function () { go(Number(d.dataset.go)); }); });
-    track.addEventListener("keydown", function (e) {
-      if (e.key === "ArrowRight") { e.preventDefault(); go(active + 1); }
-      else if (e.key === "ArrowLeft") { e.preventDefault(); go(active - 1); }
-      else if (e.key === "Home") { e.preventDefault(); go(0); }
-      else if (e.key === "End") { e.preventDefault(); go(slides.length - 1); }
-    });
-
-    /* Glisser à la souris (le tactile défile déjà tout seul) */
-    var drag = null;
-    track.addEventListener("pointerdown", function (e) {
-      if (e.pointerType !== "mouse" || e.button !== 0) return;
-      drag = { x: e.clientX, left: track.scrollLeft, moved: false };
-    });
-    window.addEventListener("pointermove", function (e) {
-      if (!drag) return;
-      var dx = e.clientX - drag.x;
-      if (!drag.moved && Math.abs(dx) > 4) { drag.moved = true; track.classList.add("drag"); }
-      if (drag.moved) track.scrollLeft = drag.left - dx;
-    });
-    function release() {
-      if (!drag) return;
-      var moved = drag.moved; drag = null;
-      if (moved) { track.classList.remove("drag"); go(nearest()); }
+    function tick(t) {
+      var dt = Math.min((t - last) / 1000, 0.05); last = t;
+      if (!drag) {
+        if (reduce.matches) pos = target;
+        else pos += (target - pos) * (1 - Math.exp(-dt * SMOOTH));
+        if (Math.abs(target - pos) < 0.0008) pos = target;
+      }
+      render();
+      raf = (drag || pos !== target) ? requestAnimationFrame(tick) : 0;
     }
-    window.addEventListener("pointerup", release);
-    window.addEventListener("pointercancel", release);
+    function kick() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); } }
 
-    update();
+    function go(delta) { target = Math.round(target) + delta; kick(); }
+    function goTo(i) {
+      var d = i - mod(Math.round(target), n);
+      d -= n * Math.round(d / n);
+      target = Math.round(target) + d; kick();
+    }
+
+    if (prev) prev.addEventListener("click", function () { go(-1); });
+    if (next) next.addEventListener("click", function () { go(1); });
+    dots.forEach(function (d) { d.addEventListener("click", function () { goTo(Number(d.dataset.go)); }); });
+    track.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") { e.preventDefault(); go(1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+      else if (e.key === "Home") { e.preventDefault(); goTo(0); }
+      else if (e.key === "End") { e.preventDefault(); goTo(n - 1); }
+    });
+    /* Clic sur une carte voisine : elle passe au centre */
+    slides.forEach(function (s, i) {
+      s.addEventListener("click", function () { if (!drag && !s.classList.contains("on")) goTo(i); });
+    });
+    /* Défilement horizontal au trackpad */
+    track.addEventListener("wheel", function (e) {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY) || Math.abs(e.deltaX) < 18) return;
+      e.preventDefault();
+      var now = Date.now();
+      if (now - lastWheel < 420) return;
+      lastWheel = now; go(e.deltaX > 0 ? 1 : -1);
+    }, { passive: false });
+
+    /* Glisser (souris, doigt, stylet) */
+    track.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      drag = { id: e.pointerId, x: e.clientX, pos0: pos, engaged: false, lx: e.clientX, lt: performance.now(), v: 0 };
+    });
+    track.addEventListener("pointermove", function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      var dx = e.clientX - drag.x;
+      if (!drag.engaged) {
+        if (Math.abs(dx) < 6) return;
+        drag.engaged = true; track.classList.add("drag");
+        try { track.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+      var step = slides[0].offsetWidth * GAP, now = performance.now();
+      var dt = Math.max(now - drag.lt, 1) / 1000;
+      drag.v = 0.8 * drag.v + 0.2 * (-(e.clientX - drag.lx) / step / dt);
+      drag.lx = e.clientX; drag.lt = now;
+      pos = drag.pos0 - dx / step; target = pos;
+      kick();
+    });
+    function release(e) {
+      if (!drag || (e && e.pointerId !== drag.id)) return;
+      var d = drag; track.classList.remove("drag");
+      if (d.engaged) {
+        var proj = pos + Math.max(-4, Math.min(4, d.v)) * 0.18;
+        target = Math.round(proj);
+        setTimeout(function () { drag = null; }, 0);   /* évite le clic fantôme après un glissement */
+      } else { drag = null; }
+      kick();
+    }
+    track.addEventListener("pointerup", release);
+    track.addEventListener("pointercancel", release);
+
+    window.addEventListener("resize", function () { measure(); render(); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { measure(); render(); });
+    window.addEventListener("load", function () { measure(); render(); });
+    measure(); render();
   });
 
   /* Copie de l'adresse e-mail */
