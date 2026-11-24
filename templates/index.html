@@ -31,7 +31,7 @@
   <div class="portrait">
     {% if has_photo %}
     <figure class="photo">
-      <img src="{{ asset(photo_path) }}" alt="{{ cv.photo_alt or ('Portrait de ' ~ cv.name) }}" width="800" height="1000" fetchpriority="high">
+      <img src="{{ asset(photo_path) }}" alt="{{ cv.photo_alt or ('Portrait de ' ~ cv.name) }}" width="400" height="600" fetchpriority="high">
     </figure>
     {% else %}
     <figure class="photo ph" aria-label="Emplacement de la photo">
