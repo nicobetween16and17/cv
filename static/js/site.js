@@ -95,13 +95,15 @@
 
     function tick(t) {
       var dt = Math.min((t - last) / 1000, 0.05); last = t;
-      if (!drag) {
+      var dragging = drag && drag.engaged;
+      if (!dragging) {
+        if (target !== Math.round(target)) target = Math.round(target);   /* on se pose toujours sur une carte */
         if (reduce.matches) pos = target;
         else pos += (target - pos) * (1 - Math.exp(-dt * SMOOTH));
         if (Math.abs(target - pos) < 0.0008) pos = target;
       }
       render();
-      raf = (drag || pos !== target) ? requestAnimationFrame(tick) : 0;
+      raf = (dragging || pos !== target) ? requestAnimationFrame(tick) : 0;
     }
     function kick() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); } }
 
@@ -123,7 +125,7 @@
     });
     /* Clic sur une carte voisine : elle passe au centre */
     slides.forEach(function (s, i) {
-      s.addEventListener("click", function () { if (!drag && !s.classList.contains("on")) goTo(i); });
+      s.addEventListener("click", function () { if (!justDragged && !(drag && drag.engaged) && !s.classList.contains("on")) goTo(i); });
     });
     /* Défilement horizontal au trackpad */
     track.addEventListener("wheel", function (e) {
@@ -134,13 +136,29 @@
       lastWheel = now; go(e.deltaX > 0 ? 1 : -1);
     }, { passive: false });
 
-    /* Glisser (souris, doigt, stylet) */
+    /* Glisser (souris, doigt, stylet). Les fins de geste sont écoutées sur la fenêtre :
+       relâcher hors du carrousel, perdre la capture ou changer d'onglet ne bloque rien. */
+    function endDrag() {
+      if (!drag) return;
+      var d = drag; drag = null; track.classList.remove("drag");
+      if (d.engaged) {
+        var proj = pos + Math.max(-4, Math.min(4, d.v)) * 0.18;
+        target = Math.round(proj);
+        justDragged = true; setTimeout(function () { justDragged = false; }, 0);
+      } else {
+        target = Math.round(target);
+      }
+      kick();
+    }
+    var justDragged = false;
     track.addEventListener("pointerdown", function (e) {
       if (e.pointerType === "mouse" && e.button !== 0) return;
+      endDrag();
       drag = { id: e.pointerId, x: e.clientX, pos0: pos, engaged: false, lx: e.clientX, lt: performance.now(), v: 0 };
     });
-    track.addEventListener("pointermove", function (e) {
+    window.addEventListener("pointermove", function (e) {
       if (!drag || e.pointerId !== drag.id) return;
+      if (e.pointerType === "mouse" && e.buttons === 0) { endDrag(); return; }   /* bouton relâché ailleurs */
       var dx = e.clientX - drag.x;
       if (!drag.engaged) {
         if (Math.abs(dx) < 6) return;
@@ -154,18 +172,11 @@
       pos = drag.pos0 - dx / step; target = pos;
       kick();
     });
-    function release(e) {
-      if (!drag || (e && e.pointerId !== drag.id)) return;
-      var d = drag; track.classList.remove("drag");
-      if (d.engaged) {
-        var proj = pos + Math.max(-4, Math.min(4, d.v)) * 0.18;
-        target = Math.round(proj);
-        setTimeout(function () { drag = null; }, 0);   /* évite le clic fantôme après un glissement */
-      } else { drag = null; }
-      kick();
-    }
-    track.addEventListener("pointerup", release);
-    track.addEventListener("pointercancel", release);
+    window.addEventListener("pointerup", endDrag);
+    window.addEventListener("pointercancel", endDrag);
+    window.addEventListener("blur", endDrag);
+    track.addEventListener("lostpointercapture", endDrag);
+    document.addEventListener("visibilitychange", function () { if (document.hidden) endDrag(); });
 
     window.addEventListener("resize", function () { measure(); render(); });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { measure(); render(); });
