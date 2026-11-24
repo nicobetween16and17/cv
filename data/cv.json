@@ -9,7 +9,7 @@
   "email": "nicolas.espanaribera@gmail.be",
   "contact_text": "Un stage, un projet ou une question ? Écrivez-moi, je réponds en général sous 48 heures.",
   "links": [
-    { "label": "GitHub", "url": "https://github.com/nicobetween16and17" },
+    { "label": "GitHub", "url": "https://github.com/nicobetween16and17" }
   ],
   "terminal": [
     ["whoami", "Nicolas Espana Ribera"],
