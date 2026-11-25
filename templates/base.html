@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  {% block head %}{% endblock %}
   <script>
     try { var t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
   </script>
@@ -24,6 +25,7 @@
         <a href="{{ url_for('index') }}#projets" data-s="projets">Projets</a>
         <a href="{{ url_for('index') }}#contact" data-s="contact">Contact</a>
         <a href="{{ url_for('pong') }}" class="{{ 'on' if request.endpoint == 'pong' }}">Pong</a>
+        <a href="{{ url_for('wolf') }}" class="{{ 'on' if request.endpoint == 'wolf' }}">3D</a>
       </nav>
       <button class="theme-btn" id="themeBtn" type="button" aria-label="Changer de thème">thème</button>
     </div>

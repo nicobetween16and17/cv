@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Labyrinthe 3D · {{ cv.name }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ asset('css/wolf.css') }}">{% endblock %}
+
+{% block content %}
+<section class="pong-page wolf-page">
+  <div class="sec-head">
+    <h1>Labyrinthe 3D</h1>
+    <span class="sub">Raycasting en JavaScript. Trouvez le panneau SORTIE le plus vite possible.</span>
+  </div>
+
+  <div class="pong-bar">
+    <button class="btn" type="button" id="wRestart">Recommencer</button>
+    <button class="btn" type="button" id="wMapBtn" aria-pressed="true">Minimap</button>
+    <span class="wolf-best" id="wBest"></span>
+    <span class="wolf-time" id="wTime" role="timer" aria-label="Temps écoulé">0:00.0</span>
+  </div>
+
+  <div class="wolf-stage">
+    <canvas id="wolf" width="480" height="300" tabindex="0"
+            aria-label="Vue à la première personne d'un labyrinthe. Trouvez le panneau SORTIE."></canvas>
+    <canvas id="mini" width="144" height="120" aria-hidden="true"></canvas>
+    <div class="wolf-overlay" id="wOverlay">
+      <div>
+        <p class="wolf-title" id="wTitle">Prêt ?</p>
+        <p id="wMsg">Chargement du niveau…</p>
+        <button class="btn primary" type="button" id="wStart" disabled>Jouer</button>
+      </div>
+    </div>
+  </div>
+  <p class="legend">Clavier : W A S D (ZQSD sur AZERTY) ou flèches pour bouger, souris ou flèches gauche et droite pour tourner, Maj pour courir, M pour la minimap, Échap pour la pause. Téléphone : glissez à gauche pour avancer, à droite pour tourner.</p>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ asset('js/wolf.js') }}" defer></script>
+{% endblock %}

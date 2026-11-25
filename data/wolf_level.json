@@ -1,0 +1,62 @@
+{
+  "name": "Niveau 1",
+  "legend": {
+    "#": "pierre grise",
+    "B": "pierre bleue",
+    "W": "bois",
+    "M": "métal",
+    "E": "sortie",
+    "S": "départ",
+    ".": "vide"
+  },
+  "rows": [
+    "BBBBBBBBBBBBBBBBBBBBBBBB",
+    "B......#........W......B",
+    "B.S....#...............B",
+    "B...WW.#...............B",
+    "B....W....M..M..W......B",
+    "B...............WMMMM..B",
+    "B......#####....W......B",
+    "B......#........W......B",
+    "B......#..M..M..W......B",
+    "B#..####...............B",
+    "B......#...........MMMMB",
+    "B......#........W......B",
+    "B.WW...#..M..M..W......B",
+    "B...............W......B",
+    "B...........####WMMMM..B",
+    "B....W.#........W......B",
+    "B....W.#..M..M..W......B",
+    "B..W...#........W......B",
+    "B......#........W......B",
+    "BBBBBBBBBBBBBBBBBBBBBEBB"
+  ],
+  "start_angle": 0,
+  "sheet": {
+    "file": "img/walls/sheet.png",
+    "key": "#008580",
+    "cells": {
+      "1": [
+        0,
+        1
+      ],
+      "2": [
+        0,
+        3
+      ],
+      "3": [
+        7,
+        3
+      ],
+      "4": [
+        5,
+        4
+      ],
+      "5": [
+        2,
+        8
+      ]
+    },
+    "note": "cells : numéro de mur -> [colonne, ligne] de la case dans la planche, en comptant depuis 0 en haut à gauche. Murs 6 à 9 : écrire les chiffres 6 à 9 dans les lignes de la carte."
+  }
+}

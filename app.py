@@ -110,12 +110,38 @@ def pong():
     return render_template("pong.html")
 
 
+@app.get("/wolf")
+def wolf():
+    return render_template("wolf.html")
+
+
 # --------------------------------------------------------------------------
 # API
 # --------------------------------------------------------------------------
 @app.get("/api/cv")
 def api_cv():
     return jsonify(load_cv())
+
+
+@app.get("/api/wolf/level")
+def api_wolf_level():
+    """Niveau du labyrinthe 3D. Les textures peuvent venir de static/img/walls/<1-5>.png ou d'une planche sheet.png."""
+    with (BASE_DIR / "data" / "wolf_level.json").open(encoding="utf-8") as f:
+        level = json.load(f)
+    custom = {}
+    for n in range(1, 6):
+        rel = f"img/walls/{n}.png"
+        if (BASE_DIR / "static" / rel).is_file():
+            custom[str(n)] = url_for("static", filename=rel)
+    level["custom_textures"] = custom
+    sheet = level.get("sheet")
+    if sheet:
+        rel = sheet.get("file", "img/walls/sheet.png")
+        if (BASE_DIR / "static" / rel).is_file():
+            sheet["url"] = url_for("static", filename=rel)
+        else:
+            level.pop("sheet")
+    return jsonify(level)
 
 
 @app.get("/api/scores")
