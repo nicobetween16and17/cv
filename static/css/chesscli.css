@@ -1,0 +1,23 @@
+/* Page /ChessCLI : le terminal reste sombre quel que soit le thème du site. */
+.cli-page { padding: 2rem 0 3rem; }
+.cli-head h1 { font-family: "Space Grotesk", system-ui, sans-serif; margin: 0 0 .5rem; }
+.cli-head p { max-width: 70ch; color: var(--muted, #8a8f98); line-height: 1.6; }
+.cli-head kbd {
+  font: 500 .8em "JetBrains Mono", monospace; padding: .1em .4em; border-radius: 4px;
+  border: 1px solid var(--line, #3a3f4a); background: rgba(127,127,127,.12);
+}
+.cli-frame {
+  margin-top: 1.25rem; padding: 12px; border-radius: 12px; background: #0d0f14;
+  border: 1px solid var(--line, #2a2f3a); box-shadow: 0 10px 40px rgba(0,0,0,.25);
+  overflow-x: auto;
+}
+#term { margin: 0 auto; width: max-content; max-width: 100%; }
+#term:focus-within { outline: 2px solid #56b6c2; outline-offset: 4px; border-radius: 4px; }
+.cli-msg { margin: .75rem 0 0; color: #e06c75; font: 500 .85rem "JetBrains Mono", monospace; }
+.cli-pad { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; margin-top: 1rem; max-width: 30rem; }
+.cli-pad button {
+  padding: .6rem .4rem; border-radius: 8px; cursor: pointer; font: 500 .9rem "Inter", system-ui, sans-serif;
+  color: inherit; background: rgba(127,127,127,.1); border: 1px solid var(--line, #3a3f4a);
+}
+.cli-pad button:hover { background: rgba(127,127,127,.2); }
+.cli-pad .wide { grid-column: span 2; }

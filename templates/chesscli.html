@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Échecs en terminal · {{ cv.name }}{% endblock %}
+{% block head %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.css">
+  <link rel="stylesheet" href="{{ asset('css/chesscli.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="cli-page">
+  <header class="cli-head">
+    <h1>Échecs <span class="muted">dans un terminal</span></h1>
+    <p>Un faux terminal : la commande <code>python ChessApp.py</code> est déjà écrite, appuie sur <kbd>Entrée</kbd> pour lancer le jeu (ou tape <code>help</code>)
+       (un programme Python en ligne de commande, <code>python-chess</code> + Stockfish).
+       Dans le jeu : <kbd>↑↓←→</kbd> ou <kbd>ZQSD</kbd>, <kbd>Entrée</kbd>, <kbd>Échap</kbd>, <kbd>U</kbd> reprendre un coup, <kbd>M</kbd> menu, <kbd>Ctrl</kbd>+<kbd>C</kbd> quitter.</p>
+  </header>
+
+  <div class="term cli-term" id="cliFrame">
+    <div class="term-top"><i></i><i></i><i></i><span>~/chess</span></div>
+    <div class="term-body">
+      <div id="term" data-cols="{{ cols }}" data-rows="{{ rows }}" data-name="{{ cv.name }}" data-role="{{ cv.role }}" aria-label="Terminal de jeu d'échecs"></div>
+      <p class="cli-msg" id="cliMsg" hidden></p>
+    </div>
+  </div>
+
+  <div class="cli-pad" aria-label="Touches à l'écran">
+    <button type="button" data-key="&#27;[A" aria-label="Haut">↑</button>
+    <button type="button" data-key="&#27;[D" aria-label="Gauche">←</button>
+    <button type="button" data-key="&#27;[B" aria-label="Bas">↓</button>
+    <button type="button" data-key="&#27;[C" aria-label="Droite">→</button>
+    <button type="button" data-key="&#13;" class="wide">Entrée</button>
+    <button type="button" data-key="&#27;" class="wide">Échap</button>
+    <button type="button" data-key="u">Reprendre</button>
+    <button type="button" data-key="m">Menu</button>
+    <button type="button" data-key="&#3;" class="wide">Quitter (Ctrl-C)</button>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="https://cdn.jsdelivr.net/npm/xterm@5.3.0/lib/xterm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xterm-addon-canvas@0.5.0/lib/xterm-addon-canvas.js"></script>
+  <script src="{{ asset('js/chesscli.js') }}" defer></script>
+{% endblock %}

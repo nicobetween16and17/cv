@@ -26,6 +26,16 @@ NAME_RE = re.compile(r"[\w .\-]{1,16}")
 app = Flask(__name__)
 app.json.ensure_ascii = False
 
+# Page d'échecs en terminal : optionnelle, le reste du site marche même sans `pip install chess`.
+try:
+    from chesscli_web import bp as chesscli_bp
+
+    app.register_blueprint(chesscli_bp)
+    app.config["CHESSCLI"] = True
+except ImportError as exc:
+    print(f"[chesscli] page désactivée : {exc}")
+    app.config["CHESSCLI"] = False
+
 
 # --------------------------------------------------------------------------
 # Données du CV
