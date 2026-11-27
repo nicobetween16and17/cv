@@ -6,14 +6,11 @@
   font: 500 .8em "JetBrains Mono", monospace; padding: .1em .4em; border-radius: 4px;
   border: 1px solid var(--line, #3a3f4a); background: rgba(127,127,127,.12);
 }
-.cli-frame {
-  margin-top: 1.25rem; padding: 12px; border-radius: 12px; background: #0d0f14;
-  border: 1px solid var(--line, #2a2f3a); box-shadow: 0 10px 40px rgba(0,0,0,.25);
-  overflow-x: auto;
-}
+.cli-term { margin-top: 1.25rem; }
+.cli-term .term-body { overflow-x: auto; }
 #term { margin: 0 auto; width: max-content; max-width: 100%; }
 #term:focus-within { outline: 2px solid #56b6c2; outline-offset: 4px; border-radius: 4px; }
-.cli-msg { margin: .75rem 0 0; color: #e06c75; font: 500 .85rem "JetBrains Mono", monospace; }
+.cli-msg { margin: .75rem 0 0; color: var(--err, #e06c75); font: 500 .85rem var(--font-mono, "JetBrains Mono", monospace); }
 .cli-pad { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; margin-top: 1rem; max-width: 30rem; }
 .cli-pad button {
   padding: .6rem .4rem; border-radius: 8px; cursor: pointer; font: 500 .9rem "Inter", system-ui, sans-serif;
