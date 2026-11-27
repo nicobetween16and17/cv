@@ -50,9 +50,27 @@
       size -= 1; term.options.fontSize = size;
     }
   }
-  fit();
-  window.addEventListener("resize", fit);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+
+  /* Deux mises en page : un shell compact qui remplit le cadre (comme le terminal de l'accueil),
+     et un grand écran 92x44 pour le plateau, dont la police s'adapte à la fenêtre. */
+  var SHELL_ROWS = 12;
+  function layoutShell() {
+    host.classList.add("is-shell"); host.classList.remove("is-game");
+    term.options.fontSize = 13; term.options.lineHeight = 1.5; term.options.scrollback = 200;
+    term.resize(60, SHELL_ROWS);
+    var screen = host.querySelector(".xterm-screen");
+    var cw = screen && screen.offsetWidth ? screen.offsetWidth / 60 : 7.8;
+    term.resize(Math.max(30, Math.floor((frame.clientWidth - 32) / cw)), SHELL_ROWS);
+  }
+  function layoutGame() {
+    host.classList.add("is-game"); host.classList.remove("is-shell");
+    term.options.lineHeight = 1; term.options.scrollback = 0;
+    term.resize(COLS, ROWS);
+    fit();
+  }
+  function relayout() { if (mode === "game") fit(); else layoutShell(); }
+  window.addEventListener("resize", relayout);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
 
   /* ------------------------------------------------------------------ shell */
   function promptStr() { return ansiFg(cssVar("--term-hl", "#8fb0ff")) + "$ \x1b[0m"; }
@@ -86,6 +104,7 @@
   }
   function flushTyping() { if (typing && autoType.flush) autoType.flush(); }
   function banner() {
+    layoutShell();
     term.write("\x1b[2J\x1b[H\x1b[?25h");
     out("\x1b[1m" + NAME + "\x1b[0m" + (ROLE ? " · " + ROLE : ""));
     out("Faux terminal : aucune vraie commande n'est exécutée ici.");
@@ -158,12 +177,14 @@
 
   function startGame() {
     mode = "game"; gen += 1; state = null; queue = []; busy = false;
+    layoutGame();
     term.write("\x1b[2J\x1b[H\x1b[?25l");
     send("\u0000");                 /* touche neutre : le serveur renvoie le menu */
   }
 
   function stopGame() {
     mode = "shell"; gen += 1; queue = []; busy = false; showMsg("");
+    layoutShell();
     term.write("\x1b[0m\x1b[2J\x1b[H\x1b[?25h");
     prompt("python ChessApp.py");
   }

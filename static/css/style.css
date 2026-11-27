@@ -1,18 +1,18 @@
 /* Palette claire par défaut, sombre selon l'appareil ou le bouton de thème. */
 :root {
-  --bg: #f2f4f7;
-  --surface: #ffffff;
-  --surface-2: #e8ecf2;
-  --fg: #141a24;
-  --muted: #566073;
+  --bg: #f5cca6;
+  --surface: #f5cca6;
+  --surface-2: #d39f6f;
+  --fg: #24170f;
+  --muted: #726458;
   --line: #d5dbe5;
-  --accent: #2748e8;
-  --accent-fg: #ffffff;
-  --accent-soft: #e3e9ff;
-  --term-bg: #0f1420;
-  --term-fg: #d7deee;
-  --term-dim: #7f8aa3;
-  --term-hl: #8fb0ff;
+  --accent: #166129;
+  --accent-fg: #f5cca6;
+  --accent-soft: #d39f6f;
+  --term-bg: #24170f;
+  --term-fg: #f5cca6;
+  --term-dim: #726458;
+  --term-hl: #ffee8f;
   --ok: #1c8a55;
   --err: #c2312f;
   --font-display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;

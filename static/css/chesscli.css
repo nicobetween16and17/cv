@@ -8,8 +8,9 @@
 }
 .cli-term { margin-top: 1.25rem; }
 .cli-term .term-body { overflow-x: auto; }
-#term { margin: 0 auto; width: max-content; max-width: 100%; }
-#term:focus-within { outline: 2px solid #56b6c2; outline-offset: 4px; border-radius: 4px; }
+#term.is-shell { width: 100%; }
+#term.is-game { margin: 0 auto; width: max-content; max-width: 100%; }
+#term .xterm-viewport { background: transparent !important; }
 .cli-msg { margin: .75rem 0 0; color: var(--err, #e06c75); font: 500 .85rem var(--font-mono, "JetBrains Mono", monospace); }
 .cli-pad { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; margin-top: 1rem; max-width: 30rem; }
 .cli-pad button {
