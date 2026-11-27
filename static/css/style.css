@@ -1,18 +1,24 @@
 /* Palette claire par défaut, sombre selon l'appareil ou le bouton de thème. */
 :root {
-  --bg: #f5cca6;
-  --surface: #f5cca6;
-  --surface-2: #d39f6f;
-  --fg: #24170f;
-  --muted: #726458;
-  --line: #d5dbe5;
-  --accent: #166129;
-  --accent-fg: #f5cca6;
-  --accent-soft: #d39f6f;
-  --term-bg: #24170f;
-  --term-fg: #f5cca6;
-  --term-dim: #726458;
-  --term-hl: #ffee8f;
+  --bg: #eceeff;
+  /* lavande très pâle : clair mais coloré, plus de blanc bureau */
+  --surface: #f7f5ff;
+  --surface-2: #e2e3fa;
+  --fg: #1a1b3a;
+  /* encre indigo */
+  --muted: #565b82;
+  --line: #cfd1f0;
+  --accent: #5a3df0;
+  /* indigo-violet */
+  --accent-fg: #ffffff;
+  --accent-soft: #e3dcff;
+  --glow-1: rgba(120, 90, 255, .20);
+  /* halos de fond (clair uniquement) */
+  --glow-2: rgba(255, 140, 170, .18);
+  --term-bg: #14172e;
+  --term-fg: #dde1f7;
+  --term-dim: #8a90b8;
+  --term-hl: #a9b8ff;
   --ok: #1c8a55;
   --err: #c2312f;
   --font-display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
@@ -30,9 +36,17 @@
     --muted: #98a3b8;
     --line: #28324a;
     --accent: #86a2ff;
-    --accent-fg: #0c1017;
+    --accent-fg: #090c13;
     --accent-soft: #1f2a52;
     --term-bg: #090c13;
+    --term-fg: #d7deee;
+    --term-dim: #7f8aa3;
+    --term-hl: #8fb0ff;
+    --glow-1: transparent;
+    --glow-2: transparent;
+    --ok: #4fcf8f;
+    --err: #ff7b78;
+    color-scheme: dark;
     --ok: #4fcf8f;
     --err: #ff7b78;
     color-scheme: dark;
@@ -50,6 +64,14 @@
   --accent-fg: #0c1017;
   --accent-soft: #1f2a52;
   --term-bg: #090c13;
+  --term-fg: #d7deee;
+  --term-dim: #7f8aa3;
+  --term-hl: #8fb0ff;
+  --glow-1: transparent;
+  --glow-2: transparent;
+  --ok: #4fcf8f;
+  --err: #ff7b78;
+  color-scheme: dark;
   --ok: #4fcf8f;
   --err: #ff7b78;
   color-scheme: dark;
@@ -71,7 +93,12 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
+  background:
+    radial-gradient(900px 520px at 88% -6%, var(--glow-1), transparent 65%),
+    radial-gradient(820px 520px at -6% 28%, var(--glow-2), transparent 65%),
+    var(--bg);
+  background-attachment: fixed, fixed, scroll;
+  color: var(--fg);
   color: var(--fg);
   font: 400 16px/1.6 var(--font-body);
   padding: 0 16px 48px;
@@ -132,7 +159,9 @@ code {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: var(--bg);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
   margin: 0 -16px;
   padding: 0 16px;

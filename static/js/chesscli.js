@@ -107,7 +107,6 @@
     layoutShell();
     term.write("\x1b[2J\x1b[H\x1b[?25h");
     out("\x1b[1m" + NAME + "\x1b[0m" + (ROLE ? " · " + ROLE : ""));
-    out("Faux terminal : aucune vraie commande n'est exécutée ici.");
     out("Appuie sur " + GREEN + "Entrée" + "\x1b[0m pour lancer le jeu, ou tape " + GREEN + "help" + "\x1b[0m.");
     out("");
     prompt("python ChessApp.py");
