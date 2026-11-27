@@ -22,7 +22,7 @@ import chess
 # Réglages
 # --------------------------------------------------------------------------
 CELL_W, CELL_H = 11, 5          # une case = 11 colonnes x 5 lignes de texte (= 11 x 10 pixels)
-COLS, ROWS = 3 + 8 * CELL_W + 1, 46   # taille de terminal nécessaire
+COLS, ROWS = 3 + 8 * CELL_W + 1, 44   # taille de terminal nécessaire
 
 # (niveau Stockfish "Skill Level" 0-20, ou None pour 2 joueurs, libellé)
 MODES = [
@@ -435,7 +435,8 @@ class Game:
         king = self.board.king(self.board.turn) if self.board.is_check() else None
         cur_sq = chess.square(*self.cursor)
         who = "2 joueurs" if self.level is None else f"vs Stockfish niveau {self.level}"
-        lines = [styled(f" ÉCHECS · {who}", ACCENT, bold=True)]
+        title = styled(f" ÉCHECS · {who}", ACCENT, bold=True)
+        lines = []
 
         for row in range(7, -1, -1):
             for line in range(CELL_H):
@@ -468,17 +469,16 @@ class Game:
                         cells.append((" ", None, top) if top == bot else ("▀", top, bot))
                 lines.append(emit(cells))
         lines.append(emit(text_cells("   " + "".join(f"     {c}     " for c in "abcdefgh"), DIM, None)))
-        lines.append("")
-        lines.append(self._status())
         if self.promo is not None:
             bar = styled(" Promotion (←/→ puis Entrée) : ", (224, 190, 80), bold=True)
             for i, (_, name) in enumerate(PROMOTIONS):
                 bar += styled(f" {name} ", (20, 20, 20), (224, 190, 80), bold=True) if i == self.promo_idx else styled(f" {name} ", DIM)
                 bar += " "
-            lines.append(bar)
+            info = bar
         else:
-            lines.append(styled(" Flèches / ZQSD : déplacer · Entrée : choisir · Échap : annuler · U : reprendre · M : menu · Ctrl-C : quitter", DIM))
-        return lines
+            info = styled(" Flèches / ZQSD : déplacer · Entrée : choisir · Échap : annuler · U : reprendre · M : menu · Ctrl-C : quitter", DIM)
+        # statut et aide EN HAUT : la promotion reste visible même si le bas de la page est coupé
+        return [title, self._status(), info] + lines
 
 
 # --------------------------------------------------------------------------

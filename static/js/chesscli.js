@@ -39,11 +39,16 @@
   try { term.loadAddon(new CanvasAddon.CanvasAddon()); } catch (e) { /* rendu DOM par défaut */ }
 
   function fit() {
-    var avail = frame.clientWidth - 32;
-    var size = Math.max(5, Math.min(16, Math.floor(avail / (COLS * 0.6))));
+    var availW = frame.clientWidth - 32;
+    var top = host.getBoundingClientRect().top;
+    var availH = Math.max(260, window.innerHeight - Math.max(top, 0) - 24);
+    var size = Math.max(5, Math.min(16, Math.floor(availW / (COLS * 0.6))));
     term.options.fontSize = size;
     var screen = host.querySelector(".xterm-screen");
-    for (var i = 0; i < 6 && screen && screen.offsetWidth > avail && size > 5; i++) { size -= 1; term.options.fontSize = size; }
+    for (var i = 0; i < 14 && screen && size > 5 &&
+         (screen.offsetWidth > availW || screen.offsetHeight > availH); i++) {
+      size -= 1; term.options.fontSize = size;
+    }
   }
   fit();
   window.addEventListener("resize", fit);
@@ -171,11 +176,16 @@
   function pump() {
     if (mode !== "game" || busy || !queue.length) return;
     busy = true;
-    var raw = queue.shift(), g = gen;
+    /* Regroupe les touches en attente en une seule requête (flèches maintenues = pas de retard).
+       Le tick « Stockfish joue » part toujours seul. */
+    var batch = [];
+    if (queue[0] === "") batch.push(queue.shift());
+    else while (queue.length && queue[0] !== "" && batch.length < 12) batch.push(queue.shift());
+    var raw = batch[0], g = gen;
     fetch("/api/chesscli/key", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ key: raw, state: state })
+      body: JSON.stringify({ keys: batch, state: state })
     }).then(function (r) {
       if (r.status === 503) throw new Error("busy");
       if (!r.ok) throw new Error("http " + r.status);
@@ -193,7 +203,7 @@
       busy = false;
       if (e.message === "busy") {
         showMsg("Serveur occupé, nouvelle tentative…");
-        if (raw === "") queue.unshift("");
+        if (raw === "") queue.unshift(""); else queue = batch.concat(queue);
         setTimeout(pump, 1000);
       } else {
         showMsg("Connexion au serveur perdue. Recharge la page.");
